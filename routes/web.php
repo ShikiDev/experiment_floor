@@ -11,6 +11,16 @@
 |
 */
 
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => ['auth']], function () {
+    Route::get('/', 'DashboardController@dashboard')->name('admin.index');
+    Route::get('/postslist','PostsController@index')->name('admin.postslist');
+    Route::get('/post_add','PostsController@create')->name('admin.post_add');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
