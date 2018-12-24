@@ -9,7 +9,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
-
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=mwul8whclzjtxw50c518dc5h292o55487cs7uztm8khbngq1"></script>
 <!-- Fonts -->
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -26,6 +26,8 @@
 
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/AdminControl.css') }}">
+
 </head>
 <body>
     <div id="app">
@@ -41,10 +43,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="/admin">Main</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/admin/postslist">Posts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('admin.index')}}">Main</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('admin.posts.index')}}">Posts</a></li>
                         <li class="nav-item"><a class="nav-link" href="">Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">Users</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('admin.users.index')}}">Users</a></li>
                     </ul>
 
                     {{--<ul class="navbar"></ul>--}}

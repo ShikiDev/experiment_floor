@@ -1,0 +1,23 @@
+.delete-post{
+    color: red;
+    cursor: pointer;
+}
+
+.delete-post:hover {
+    color: #000;
+}
+
+.color-exampler {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.circle-block {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 50%;
+}

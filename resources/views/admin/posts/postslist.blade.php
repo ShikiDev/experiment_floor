@@ -22,12 +22,15 @@
                             <tr>
                                 <td scope="row">{{$key+1}}</td>
                                 <td>{{$post->title}}</td>
-                                <td>{{$post->author}}</td>
+                                <td>{{$post->author['name']}}</td>
                                 <td>{{$post->status}}</td>
-                                <td>{{$post->created}}</td>
-                                <td>{{$post->updated}}</td>
-                                <td><i class="fa fa-pencil"></i></td>
-                                <td><i class="fa fa-remove"></i></td>
+                                <td>{{$post->created_at->format('d.m.Y H:i:s')}}</td>
+                                <td>{{$post->updated_at->format('d.m.Y H:i:s')}}</td>
+                                <td><a href="{{route('admin.posts.edit',$post)}}"><i class="fa fa-pencil"></i></a></td>
+                                <td><form action="{{route('admin.posts.destroy',$post)}}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">{{csrf_field()}}
+                                        <i class="delete-post fa fa-remove"></i></form>
+                                </td>
                             </tr>
                             @empty
                             <tr>
@@ -50,8 +53,8 @@
             </div>
             <div class="col-md-2">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="{{route('admin.post_add')}}">Add new post</a></li>
-                    <li class="list-group-item"><a href="#">See hashtag list</a></li>
+                    <li class="list-group-item"><a href="{{route('admin.posts.create')}}">Add new post</a></li>
+                    <li class="list-group-item"><a href="{{route('admin.hashtags.index')}}">See hashtag list</a></li>
                 </ul>
             </div>
         </div>
