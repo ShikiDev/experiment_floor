@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => ['auth','confirmed']], function () {
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
     Route::resource('/posts', 'PostsController', ['as'=>'admin']);
     Route::resource('/hashtags', 'HashtagController', ['as'=>'admin']);
