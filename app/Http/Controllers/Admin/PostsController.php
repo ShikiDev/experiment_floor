@@ -52,15 +52,18 @@ class PostsController extends Controller
         $post->content = $request->input('content','');
         $post->status = $request->post('status');
         $post->status = empty($post->status) ? 'note' : $post->status;
+        $post->created_at = time();
+        $post->updated_at = time();
+        $post->author_uid = $user_id;
+        $post->save();
+
         if($request->input('hashtag_setted')) :
             if(is_array($request->input('hashtag_setted'))):
                 $hashtag_setted_list = $request->input('hashtag_setted');
                 foreach($hashtag_setted_list as $hashtag) $post->hashtagable()->attach($hashtag);
             endif;
         endif;
-        $post->created_at = time();
-        $post->updated_at = time();
-        $post->author_uid = $user_id;
+
         $post->save();
 
         return redirect()->route('admin.posts.index');
