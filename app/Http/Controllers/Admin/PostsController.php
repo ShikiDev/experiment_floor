@@ -7,6 +7,8 @@ use App\Hashtag;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Mockery\Exception;
 
 class PostsController extends Controller
 {
@@ -126,5 +128,14 @@ class PostsController extends Controller
     {
         $post->delete();
         return redirect()->route('admin.posts.index')->with('success','Post has been deleted');
+    }
+
+    public function uploadImages(Request $request){
+        $request_data = $request;
+        $img_array = $request_data->file('file')->store('images', 'public');
+        return json_encode([
+            'status' => 'ok',
+            'path' => '/storage/'.$img_array
+        ]);
     }
 }

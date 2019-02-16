@@ -16,11 +16,20 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => ['auth','
     Route::resource('/posts', 'PostsController', ['as'=>'admin']);
     Route::resource('/hashtags', 'HashtagController', ['as'=>'admin']);
     Route::resource('/users', 'UsersController', ['as' => 'admin']);
+    Route::post('/posts/uploadImages', 'PostsController@uploadImages');
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'FrontendController@index');
+
+Route::get('/posts', function () {
+    return view('post_list');
 });
+
+Route::get('/projects', 'FrontendController@projectList');
+
+Route::get('/about', 'FrontendController@aboutMe');
+
+Route::post('/get-json-posts', 'FrontendController@getJsonPosts');
 
 Auth::routes();
 

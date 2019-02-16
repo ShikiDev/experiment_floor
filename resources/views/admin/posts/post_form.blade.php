@@ -8,3 +8,7 @@
         <textarea id="post_editor" name="content">{{$post->content or ""}}</textarea>
     </div>
 </div>
+<div class="col">
+    @include('admin.posts.images')
+</div>
+<div class="col"></div>

@@ -5,7 +5,7 @@
         <div class="row">
             <h3>Post create</h3>
         </div>
-        <form class="form-horizontal" action="{{route('admin.posts.store')}}" method="post">
+        <form class="form-horizontal" action="{{route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             @include('admin.layouts.messages')
             <div class="row justify-content-md-center">

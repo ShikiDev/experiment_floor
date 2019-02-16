@@ -21,3 +21,49 @@
     border: 1px solid #000;
     border-radius: 50%;
 }
+
+#drop-area{
+    border: 4px dashed #49b25b;
+}
+
+#img_uploader {
+    overflow-y: scroll !important;
+    min-height: 320px;
+}
+
+.dm-uploader{
+    border: 0.25rem dashed #2a9055;
+    cursor:default;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
+}
+
+.dm-uploader .btn{
+    position:relative;
+    overflow:hidden
+}
+
+.dm-uploader .btn input[type=file]{
+    position:absolute;
+    top:0;
+    right:0;
+    margin:0;
+    border:solid transparent;
+    width:100%;
+    opacity:0;
+    cursor:pointer
+}
+
+#img_files {
+    overflow-y: scroll !important;
+    min-height: 320px;
+}
+@media (min-width: 768px) {
+    #img_files {
+        min-height: 0;
+    }
+}
