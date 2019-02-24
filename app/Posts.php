@@ -16,4 +16,8 @@ class Posts extends Model
     public function author(){
         return $this->belongsTo('App\User', 'author_uid');
     }
+
+    public function mainImg(){
+        return $this->belongsTo('App\Mediateka', 'main_img_id');
+    }
 }

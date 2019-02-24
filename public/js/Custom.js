@@ -33,6 +33,99 @@ $(document).ready(function () {
         $('.color-exampler').css('background-color', '#' + hex);
     }
 
+    $('.editor-link').on('click', function () {
+        if($('.video-link-add-form').css('display') == 'none') {
+            $('.video-link-add-form').slideDown();
+        } else {
+            $('.video-link-add-form').slideUp();
+        }
+    });
+
+    $('#add_video').click(function () {
+        var token = $('meta[name="csrf-token"]').attr('content');
+        var video_link = $('#new_video_link').val();
+        var post_uid = $('#post_uid').data('value');
+
+        $.ajax({
+            method:'POST',
+            url:'/admin/posts/addVideoLink',
+            dataType:'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{video_link: video_link, post_uid: post_uid},
+            success:function (response) {
+                $('.video-list').html('');
+                response.forEach(function (item, i, arr) {
+                    $('.video-list').append('<li class="media">\n' +
+                        '<a href="'+ item.filepath +'">video link</a>\n' +
+                        '<div class="media-body mb-1">\n' +
+                        '<div class="mb-2">\n' +
+                        '<strong class="ml-2">Tag name: '+ item.media_tag +'</strong>\n' +
+                        '<button type="button" class="close float-right mr-3 delete-video-link" data-type="video" data-id="'+item.id+'" aria-label="Close">\n' +
+                        '<span aria-hidden="true">&times;</span>\n' +
+                        '</button>\n' +
+                        '</div>\n' +
+                        '<hr class="mt-1 mb-1">\n' +
+                        '</div>\n' +
+                        '</li>');
+                });
+
+                $('#new_video_link').val('');
+                $('.video-link-add-form').slideUp();
+            }
+        })
+    });
+
+    $('.delete-image-link, .delete-video-link').on('click', function () {
+        var type = $(this).data('type');
+        var id = $(this).data('id');
+        var url = '';
+        var token = $('meta[name="csrf-token"]').attr('content');
+        if(type == 'video'){
+            url = '/admin/posts/deleteVideos';
+        }else if(type == 'image'){
+            url = '/admin/posts/deleteImages';
+        }
+
+        $.ajax({
+            method:'POST',
+            url: url,
+            dataType:'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{id:id},
+            success:function (response) {
+                //переделать на пересоздание списка
+                window.location.reload();
+            }
+        });
+    });
+
+    $('.make-image-main').on('click',function () {
+       var img_id = $(this).data('id');
+       var post_uid = $('#post_uid').data('value');
+       $.ajax({
+           url:'/admin/posts/setMainImage',
+           method:'POST',
+           dataType:'json',
+           headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           },
+           data:{img_id:img_id, post_uid:post_uid},
+           success:function (response) {
+               $('.image-list li').each(function () {
+                   $(this).find('i').removeClass('fa-bookmark-o fa-bookmark').addClass('fa-bookmark-o');
+
+                   if($(this).find('i').data('id') != undefined && $(this).find('i').data('id') == img_id){
+                       $(this).find('i').removeClass('fa-bookmark-o fa-bookmark').addClass('fa-bookmark');
+                   }
+               });
+           }
+       });
+    });
+
     $('.hashtags_selector').fastselect();
 
     $('#drop-area').dmUploader({ //
@@ -40,6 +133,9 @@ $(document).ready(function () {
         maxFileSize: 3000000, // 3 Megs
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        extraData:{
+            post_uid: $('#post_uid').data('value')
         },
         extFilter: ["jpg", "jpeg", "png", "gif"],
         onDragEnter: function(){
@@ -82,11 +178,8 @@ $(document).ready(function () {
             ui_multi_update_file_progress(id, 0, 'danger', false);
         },
         onFallbackMode: function(){
-            // When the browser doesn't support this plugin :(
-            ui_add_log('Plugin cant be used here, running Fallback callback', 'danger');
         },
         onFileSizeError: function(file){
-            ui_add_log('File \'' + file.name + '\' cannot be added: size excess limit', 'danger');
         }
     });
 });

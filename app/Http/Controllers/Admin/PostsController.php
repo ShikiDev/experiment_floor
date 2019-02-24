@@ -8,7 +8,9 @@ use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Mockery\Exception;
+use App\Mediateka;
 
 class PostsController extends Controller
 {
@@ -89,10 +91,16 @@ class PostsController extends Controller
     public function edit(Posts $post)
     {
         foreach($post->hashtagable as $setted_hashtag) $selected_hashtags[] = $setted_hashtag->id;
+        $images = Mediateka::where('post_uid',$post->id)
+            ->where('media_type','images')->get();
+        $video_links = Mediateka::where('post_uid',$post->id)
+            ->where('media_type','videos')->get();
         return view('admin.posts.post_edit',[
             'post' => $post,
             'hashtag_list' => Hashtag::all(),
-            'selected_hashtags' => $selected_hashtags
+            'selected_hashtags' => $selected_hashtags,
+            'images' => $images,
+            'video_links' => $video_links,
         ]);
     }
 
@@ -133,12 +141,92 @@ class PostsController extends Controller
         return redirect()->route('admin.posts.index')->with('success','Post has been deleted');
     }
 
+    /**
+     *
+     * @param Request $request
+     * @return string
+     */
     public function uploadImages(Request $request){
         $request_data = $request;
+        $post_uid = $request->input('post_uid');
+
         $img_array = $request_data->file('file')->store('images', 'public');
+
+        $image  = new Mediateka();
+        $image->filepath = '/storage/'.$img_array;
+        $image->post_uid = $post_uid;
+        $image->media_tag = '';
+        $image->media_type = 'images';
+        $image->created_at = time();
+        $image->updated_at = time();
+        $image->save();
+
+        $image->media_tag = 'post_'.$post_uid.'_'.$image->id;
+        $image->save();
+
         return json_encode([
             'status' => 'ok',
             'path' => '/storage/'.$img_array
         ]);
+    }
+
+    public function addVideoLink(Request $request){
+        $post_uid = $request->input('post_uid');
+        $video = new Mediateka();
+        $video->filepath = $request->input('video_link');
+        $video->post_uid = $post_uid;
+        $video->media_tag = '';
+        $video->media_type = 'videos';
+        $video->created_at = time();
+        $video->updated_at = time();
+        $video->save();
+
+        $video->media_tag = 'post_'.$post_uid.'_'.$video->id;
+        $video->save();
+
+        $video_list = Mediateka::where('post_uid',$post_uid)->where('media_type','videos')->get();
+        echo json_encode($video_list);
+    }
+
+    public function setMainImage(Request $request){
+        $img_id = $request->input('img_id');
+        $post_uid = $request->input('post_uid');
+        Mediateka::where('post_uid',$post_uid)->where('media_type','images')->update(['main_img' => 'false']);
+        $image = Mediateka::find($img_id);
+        $image->main_img = 'true';
+        $image->save();
+
+        $post =  Posts::find($post_uid);
+        $post->main_img_id = $img_id;
+        $post->save();
+
+        echo 'true';
+    }
+
+    /**
+     * добавить для удаления видео перерисовку блока черезь старый и не очень старый
+     */
+    public function deleteVideos(){
+        $request = Input::all();
+        $video_id = $request['id'];
+        $video = Mediateka::find($video_id);
+        $post_id = $video->post_id;
+        $video->delete();
+        $video_list = Mediateka::where('post_uid',$post_id)->where('media_type','videos')->get();
+        echo json_encode($video_list);
+    }
+
+    /**
+     *
+     */
+    public function deleteImages(){
+        $request = Input::all();
+        $image_id = $request['id'];
+        $image = Mediateka::find($image_id);
+        $post_id = $image->post_id;
+        Storage::delete($image->filepath);
+        $image->delete();
+        $image_list =  Mediateka::where('post_uid',$post_id)->where('media_type','images')->get();
+        echo json_encode($image_list);
     }
 }

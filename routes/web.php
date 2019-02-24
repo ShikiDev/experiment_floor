@@ -17,13 +17,18 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => ['auth','
     Route::resource('/hashtags', 'HashtagController', ['as'=>'admin']);
     Route::resource('/users', 'UsersController', ['as' => 'admin']);
     Route::post('/posts/uploadImages', 'PostsController@uploadImages');
+    Route::post('/posts/addVideoLink', 'PostsController@addVideoLink');
+    Route::post('/posts/setMainImage', 'PostsController@setMainImage');
+    Route::post('/posts/deleteVideos', 'PostsController@deleteVideos');
+    Route::post('/posts/deleteImages', 'PostsController@deleteImages');
 });
 
 Route::get('/', 'FrontendController@index');
 
-Route::get('/posts', function () {
-    return view('post_list');
-});
+Route::get('/posts', 'FrontendController@index');
+
+Route::get('/post/{post}', 'FrontendController@getPost');
+
 
 Route::get('/projects', 'FrontendController@projectList');
 

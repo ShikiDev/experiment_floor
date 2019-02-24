@@ -29,7 +29,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Main</a>
+                        <a class="nav-link active" href="/">Main</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/posts">Posts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/projects">Projects</a>

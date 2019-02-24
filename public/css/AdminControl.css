@@ -67,3 +67,46 @@
         min-height: 0;
     }
 }
+
+body {
+    padding-bottom: 2rem;
+}
+
+nav {
+    border-top: 4px solid #28a745;
+}
+
+nav li.active {
+    border-bottom: 4px solid #28a745;
+}
+
+.row {
+    margin-bottom: 1rem;
+}
+[class*="col-"] {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.progress {
+    height: 1.5rem;
+}
+
+.list-scroller {
+    overflow-y: scroll !important;
+    min-height: 260px !important;
+}
+
+#debug {
+    overflow-y: scroll !important;
+    height: 180px;
+}
+
+.preview-img {
+    width: 64px;
+    height: 64px;
+}

@@ -13,10 +13,13 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('mediatekas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('filepath');
+            $table->string('media_tag');
+            $table->string('media_type');
             $table->integer('post_uid');
+            $table->string('main_img',10);
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('mediatekas');
     }
 }

@@ -1,17 +1,21 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default" v-for="post in posts">
-                    <div class="card-header">{{post.title}}</div>
-                    <div class="card-body" v-html="post.content">
+            <div class="col-md-8 mb-2" v-for="post in posts">
+                <div class="card card-default">
+                    <img class="card-img-top" :src="post.main_img" alt="Card image cap">
+                    <div class="card-body">
+                        <div class="card-text" v-html="post.content"></div>
+                    </div>
+                    <div class="card-footer">
+                        <a :href="'/post/' + post.id" class="card-link">Read more</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <button class="btn btn-primary" @click="update">Получить еще</button>
+                <button type="button" class="btn btn-primary" @click="update">Получить еще</button>
             </div>
         </div>
     </div>
