@@ -90,6 +90,7 @@ class PostsController extends Controller
      */
     public function edit(Posts $post)
     {
+        $selected_hashtags = array();
         foreach($post->hashtagable as $setted_hashtag) $selected_hashtags[] = $setted_hashtag->id;
         $images = Mediateka::where('post_uid',$post->id)
             ->where('media_type','images')->get();

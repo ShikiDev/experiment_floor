@@ -1,5 +1,14 @@
 @extends('layouts.app_front')
 
 @section('content')
-<projects-component :projects="{{$projects}}"></projects-component>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Projects</h3>
+                <div class="about-me-block">
+                    <span>Development in progress</span>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -48862,11 +48862,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             posts: [],
+            categories: ['review', 'projects', 'discuss', 'posts'],
             is_refresh: false,
             last_id: 0
         };
@@ -48912,38 +48927,51 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      { staticClass: "row justify-content-center" },
-      _vm._l(_vm.posts, function(post) {
-        return _c("div", { staticClass: "col-md-8 mb-2" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: post.main_img, alt: "Card image cap" }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-9 mb-2" },
+        _vm._l(_vm.posts, function(post) {
+          return _c("div", { staticClass: "mb-4" }, [
+            _c("div", { staticClass: "post-container" }, [
+              _c("div", { staticClass: "img-wrap" }, [
+                _c("a", { attrs: { href: "/post/" + post.id } }, [
+                  _c("img", {
+                    staticClass: "img-post",
+                    attrs: { src: post.main_img }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0, true),
+              _vm._v(" "),
+              _c("h2", { domProps: { innerHTML: _vm._s(post.title) } }),
+              _vm._v(" "),
               _c("div", {
-                staticClass: "card-text",
+                staticClass: "short-description-block",
                 domProps: { innerHTML: _vm._s(post.content) }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "card-link",
-                  attrs: { href: "/post/" + post.id }
-                },
-                [_vm._v("Read more")]
-              )
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "lnk-btn" }, [
+                _c("a", { attrs: { href: "/post/" + post.id } }, [
+                  _vm._v("Read more")
+                ])
+              ])
             ])
           ])
-        ])
-      })
-    ),
+        })
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        _c(
+          "div",
+          { staticClass: "category-list" },
+          _vm._l(_vm.categories, function(category) {
+            return _c("span", [_vm._v(_vm._s(category))])
+          })
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
@@ -48960,7 +48988,24 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "link-n-time" }, [
+      _c("div", { staticClass: "post-info" }, [
+        _c("div", { staticClass: "post-categories" }, [
+          _c("span", { staticClass: "category" }, [_vm._v("Review")])
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "post-hint" }, [
+          _vm._v("Author: Alan Simons / 24.03.2019")
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -49163,6 +49208,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -49184,21 +49236,48 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "container " }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col" }, [
-        _c("h3", [_vm._v(_vm._s(_vm.post.title))])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("div", { domProps: { innerHTML: _vm._s(_vm.post.content) } })
+        _c("div", { staticClass: "post-container one-post-container" }, [
+          _c("img", {
+            staticClass: "main-post-img",
+            attrs: { src: _vm.post.post_main_img }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "post-text-wrap" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("h3", [_vm._v(_vm._s(_vm.post.title))]),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "post-text-block",
+              domProps: { innerHTML: _vm._s(_vm.post.content) }
+            })
+          ])
+        ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "post-hint-block" }, [
+      _c("div", { staticClass: "post-info" }, [
+        _c("div", { staticClass: "post-categories" }, [
+          _c("span", { staticClass: "category" }, [_vm._v("Review")])
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "post-hint" }, [
+          _vm._v("Author: Alan Simons / 24.03.2019")
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

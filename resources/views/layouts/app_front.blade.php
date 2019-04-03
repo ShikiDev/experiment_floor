@@ -11,40 +11,29 @@
 
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Loved+by+the+King" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/self-made.css') }}">
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <nav class="menu">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="menu-logo" href="{{ url('/') }}">
+                {{ config('app.name', 'Alan Simons') }}
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="menu-btn" style="display: none" type="button" data-toggle="collapse" data-target="#menu-block" aria-controls="menu-block" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/">Main</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/posts">Posts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">About</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="nav-menu" id="menu-block">
+                <li class="nav-menu-item"><a class="nav-menu-link" href="/">Main</a></li>
+                <li class="nav-menu-item"><a class="nav-menu-link" href="/posts">Posts</a></li>
+                <li class="nav-menu-item"><a class="nav-menu-link" href="/projects">Projects</a></li>
+                <li class="nav-menu-item"><a class="nav-menu-link" href="/about">About </a></li>
+            </ul>
         </div>
     </nav>
-
     <main class="py-4">
         @yield('content')
     </main>

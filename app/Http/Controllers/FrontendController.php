@@ -18,6 +18,7 @@ class FrontendController extends Controller
         foreach($posts_list as $key => $post){
             $posts[$key] = $post->toArray();
             $posts[$key]['main_img'] = $post->mainImg['filepath'];
+            $posts[$key]['content'] = Posts::shortcutContent($post->content);
         }
 
         return view('frontend/main',['posts' => json_encode($posts)]);
@@ -31,6 +32,7 @@ class FrontendController extends Controller
         foreach($posts_list as $key => $post){
             $posts[$key] = $post->toArray();
             $posts[$key]['main_img'] = $post->mainImg['filepath'];
+            $posts[$key]['content'] = Posts::shortcutContent($post->content);
         }
         return $posts;
     }
@@ -57,6 +59,9 @@ class FrontendController extends Controller
     public function getPost(Request $request, $id){
         $post = Posts::find($id);
         $images = Mediateka::where('post_uid', $id)->get();
+
+        $post->post_main_img = $post->mainImg['filepath'];
+        $post->content = Posts::cutShortcutContent($post->content);
 
         $post->content = Mediateka::exchangeTagForCode($images, $post->content);
         return view('frontend/post',['post' => $post]);
